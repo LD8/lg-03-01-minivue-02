@@ -17,6 +17,7 @@
       <input type="text" v-model="count" />
     </div>
 
+    <script src="./js/observer.js"></script>
     <script src="./js/vue.js"></script>
     <script>
       const vm = new Vue({
@@ -24,8 +25,10 @@
         data: {
           msg: 'Hello Mini Vue',
           count: 100,
+          abc: { a: 1, b: 2 },
         },
       })
+      vm.msg = { test: 'abc', t2: { t3: 'abc' } }
     </script>
   </body>
 </html>

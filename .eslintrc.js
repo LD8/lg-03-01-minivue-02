@@ -16,6 +16,8 @@ module.exports = {
   rules: {
     'no-unused-vars': ['warn'],
     'no-param-reassign': ['warn'],
+    'no-new': ['warn'],
+    'no-undef': ['warn'],
     'no-underscore-dangle': ['off'],
   },
 };
