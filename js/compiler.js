@@ -66,17 +66,27 @@ class Compiler {
       this.onUpdater(node, this.vm.$methods[key], attrName.substr(3));
     } else {
       const updater = this[`${attrName}Updater`];
-      updater && updater(node, this.vm[key]);
+      updater && updater.call(this, node, this.vm[key], key);
     }
   }
 
-  textUpdater(node, value) {
+  textUpdater(node, value, key) {
     node.textContent = value;
+    new Watcher(this.vm, key, (newValue) => {
+      node.textContent = newValue;
+    });
   }
 
-  modelUpdater(node, value) {
+  modelUpdater(node, value, key) {
     // 设置表单元素的值使用表单node的value参数赋值
     node.value = value;
+    new Watcher(this.vm, key, (newValue) => {
+      node.value = newValue;
+    });
+    // 双向绑定
+    node.addEventListener('input', () => {
+      this.vm[key] = node.value;
+    });
   }
 
   // ------------------------- 作业 v-html -------------------------
@@ -116,6 +126,11 @@ class Compiler {
       // node.textContent = this.vm[key]
       // 上面不行是因为会替换掉所有 node 中的内容，起不到「插值」的作用
       node.textContent = value.replace(reg, this.vm[key]);
+
+      // 创建 Watcher 实例，注册更新
+      new Watcher(this.vm, key, (newValue) => {
+        node.textContent = newValue;
+      });
     }
   }
 
