@@ -13,28 +13,12 @@
   <body>
     <div id="app">
       <div>
-        <h1>插值表达式</h1>
-        <h3>abc {{ msg }} {{count}}</h3>
-        <h3>{{ count }}</h3>
-      </div>
-
-      <div>
-        <h1>v-text</h1>
-        <p v-text="msg"></p>
-      </div>
-
-      <div>
-        <h1>v-model</h1>
-        <input type="text" v-model="msg" />
-        <input type="text" v-model="count" />
-      </div>
-
-      <div>
         <h1>v-html</h1>
         <p v-html="htmlNode"></p>
       </div>
 
       <div>
+        <h1>v-on</h1>
         <button v-on:click="btn">
           <h1>v-on:click</h1>
         </button>
@@ -49,6 +33,23 @@
         <button id="testBtn">
           <h1>test</h1>
         </button> -->
+      </div>
+
+      <div>
+        <h1>插值表达式</h1>
+        <h3>abc {{ msg }} {{count}}</h3>
+        <h3>{{ count }}</h3>
+      </div>
+
+      <div>
+        <h1>v-text</h1>
+        <p v-text="msg"></p>
+      </div>
+
+      <div>
+        <h1>v-model</h1>
+        <input type="text" v-model="msg" />
+        <input type="text" v-model="count" />
       </div>
     </div>
 
