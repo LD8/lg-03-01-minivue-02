@@ -19,5 +19,6 @@ module.exports = {
     'no-new': ['warn'],
     'no-undef': ['warn'],
     'no-underscore-dangle': ['off'],
+    'class-methods-use-this': ['off'],
   },
 };
