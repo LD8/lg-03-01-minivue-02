@@ -44,7 +44,12 @@ class Compiler {
   }
 
   // 解析元素中的指令
-  compileElement(node) {}
+  compileElement(node) {
+    console.log(Array.from(node.attributes))
+    // 遍历所有的属性节点
+
+      // 判断是否是指令
+  }
 
   // 解析插值表达式
   compileText(node) {
