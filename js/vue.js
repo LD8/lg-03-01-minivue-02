@@ -3,6 +3,7 @@ class Vue {
     // 1. 保存传入的数据
     this.$options = options || {};
     this.$data = options.data || {};
+    this.$methods = options.methods || {};
     this.$el = typeof options.el === 'string'
       ? document.querySelector(options.el)
       : options.el;

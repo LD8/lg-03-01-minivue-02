@@ -45,10 +45,58 @@ class Compiler {
 
   // 解析元素中的指令
   compileElement(node) {
-    console.log(Array.from(node.attributes))
+    // console.log(Array.from(node.attributes));
     // 遍历所有的属性节点
-
+    Array.from(node.attributes).forEach((attr) => {
       // 判断是否是指令
+      let attrName = attr.name;
+      if (this.isDirective(attrName)) {
+        // 去掉"v-"只保留 'text' / 'model'
+        attrName = attrName.substr(2);
+        // console.log(attrName);
+        // 取得指令对应的值，也就是data中的key
+        const key = attr.value;
+        this.update(node, key, attrName);
+      }
+    });
+  }
+
+  update(node, key, attrName) {
+    if (attrName.startsWith('on')) {
+      this.onUpdater(node, this.vm.$methods[key], attrName.substr(3));
+    } else {
+      const updater = this[`${attrName}Updater`];
+      updater && updater(node, this.vm[key]);
+    }
+  }
+
+  textUpdater(node, value) {
+    node.textContent = value;
+  }
+
+  modelUpdater(node, value) {
+    // 设置表单元素的值使用表单node的value参数赋值
+    node.value = value;
+  }
+
+  // ------------------------- 作业 v-html -------------------------
+  htmlUpdater(node, value) {
+    // 将html字符串转换成dom，并从dom中获取所有子节点
+    const children = new DOMParser()
+      .parseFromString(value, 'text/html')
+      .body.childNodes;
+
+    // 遍历所有子节点并 append 在 node 上
+    Array.from(children)
+      .forEach((child) => node.appendChild(child));
+  }
+
+  // ------------------------- 作业 v-on -------------------------
+  onUpdater(node, method, eventName) {
+    // 为节点增加事件
+    node.addEventListener(eventName, method);
+    // 移除无用属性使节点更干净
+    node.removeAttribute(`v-on:${eventName}`);
   }
 
   // 解析插值表达式
