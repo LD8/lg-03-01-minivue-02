@@ -16,11 +16,13 @@ module.exports = {
   rules: {
     'no-unused-vars': ['warn'],
     'no-param-reassign': ['warn'],
-    'no-new': ['warn'],
+    'no-new': ['off'],
     'no-undef': ['warn'],
     'no-underscore-dangle': ['off'],
     'class-methods-use-this': ['off'],
     'no-unused-expressions': ['warn'],
     'no-console': ['off'],
+    'comma-dangle': ['off'],
+    quotes: ['off'],
   },
 };

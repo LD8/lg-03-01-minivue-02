@@ -62,7 +62,7 @@ class Compiler {
   }
 
   update(node, key, attrName) {
-    if (attrName.startsWith('on')) {
+    if (attrName.startsWith("on")) {
       this.onUpdater(node, this.vm.$methods[key], attrName.substr(3));
     } else {
       const updater = this[`${attrName}Updater`];
@@ -78,27 +78,36 @@ class Compiler {
   }
 
   modelUpdater(node, value, key) {
-    // 设置表单元素的值使用表单node的value参数赋值
+    // 设置表单元素的值使用表单 node 的 value 参数赋值
     node.value = value;
     new Watcher(this.vm, key, (newValue) => {
       node.value = newValue;
     });
-    // 双向绑定
-    node.addEventListener('input', () => {
+
+    // ****** 双向绑定表单元素，注册 input 事件 ************************
+    node.addEventListener("input", () => {
       this.vm[key] = node.value;
     });
   }
 
   // ------------------------- 作业 v-html -------------------------
-  htmlUpdater(node, value) {
+  htmlUpdater(node, value, key) {
     // 将html字符串转换成dom，并从dom中获取所有子节点
-    const children = new DOMParser()
-      .parseFromString(value, 'text/html')
-      .body.childNodes;
+    const children = new DOMParser().parseFromString(value, "text/html").body
+      .childNodes;
 
     // 遍历所有子节点并 append 在 node 上
-    Array.from(children)
-      .forEach((child) => node.appendChild(child));
+    Array.from(children).forEach((child) => node.appendChild(child));
+
+    // ****** 创建观察者实例 ******************************
+    new Watcher(this.vm, key, (newValue) => {
+      // 先清空节点
+      node.textContent = "";
+      // 再将新的字符串解析成 dom 节点，一一贴在空 node 上
+      Array.from(
+        new DOMParser().parseFromString(newValue, "text/html").body.childNodes
+      ).forEach((child) => node.appendChild(child));
+    });
   }
 
   // ------------------------- 作业 v-on -------------------------
@@ -136,6 +145,6 @@ class Compiler {
 
   // 判断元素是否是指令：以 'v-' 开头
   isDirective(attrName) {
-    return attrName.startsWith('v-');
+    return attrName.startsWith("v-");
   }
 }

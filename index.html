@@ -1,75 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mini Vue</title>
-    <style>
-      div {
-        padding: 20px;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="app">
-      <div>
-        <h1>v-html</h1>
-        <p v-html="htmlNode"></p>
-      </div>
 
-      <div>
-        <h1>v-on</h1>
-        <button v-on:click="btn">
-          <h1>v-on:click</h1>
-        </button>
-        <br />
-        <br />
-        <button v-on:dblclick="btn">
-          <h1>v-on:dblclick</h1>
-        </button>
-        <!-- <button ondblclick="(()=>alert('clicked'))()">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mini Vue</title>
+  <style>
+    div {
+      padding: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div>
+      <h1>v-html</h1>
+      <p v-html="htmlNode"></p>
+    </div>
+
+    <div>
+      <h1>v-on</h1>
+      <button v-on:click="btn">
+        <h1>v-on:click</h1>
+      </button>
+      <br />
+      <br />
+      <button v-on:dblclick="btn">
+        <h1>v-on:dblclick</h1>
+      </button>
+      <!-- <button ondblclick="(()=>alert('clicked'))()">
           <h1>onclick</h1>
         </button>
         <button id="testBtn">
           <h1>test</h1>
         </button> -->
-      </div>
-
-      <div>
-        <h1>插值表达式</h1>
-        <h3>abc {{ msg }} {{count}}</h3>
-        <h3>{{ count }}</h3>
-      </div>
-
-      <div>
-        <h1>v-text</h1>
-        <p v-text="msg"></p>
-      </div>
-
-      <div>
-        <h1>v-model</h1>
-        <input type="text" v-model="msg" />
-        <input type="text" v-model="count" />
-      </div>
     </div>
 
-    <script src="./js/dep.js"></script>
-    <script src="./js/watcher.js"></script>
-    <script src="./js/compiler.js"></script>
-    <script src="./js/observer.js"></script>
-    <script src="./js/vue.js"></script>
-    <script>
-      const vm = new Vue({
-        el: '#app',
-        data: {
-          msg: 'Hello Mini Vue',
-          count: 100,
-          htmlNode: '<h3>Hello Mini Vue</h3><h4>something else</h4>',
-        },
-        methods: {
-          btn: () => alert('button clicked!'),
-        },
-      })
-    </script>
-  </body>
+    <div>
+      <h1>插值表达式</h1>
+      <h3>abc <span>{{ msg }}</span> <span>{{count}}</span></h3>
+      <h3>{{ count }}</h3>
+      <h3>{{ htmlNode }}</h3>
+    </div>
+
+    <div>
+      <h1>v-text</h1>
+      <p v-text="msg"></p>
+      <p v-text="count"></p>
+    </div>
+
+    <div>
+      <h1>v-model</h1>
+      <input type="text" v-model="msg" />
+      <input type="text" v-model="count" />
+      <input type="text" v-model="htmlNode" />
+    </div>
+  </div>
+
+  <script src="./js/dep.js"></script>
+  <script src="./js/watcher.js"></script>
+  <script src="./js/compiler.js"></script>
+  <script src="./js/observer.js"></script>
+  <script src="./js/vue.js"></script>
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        msg: "Hello Mini Vue",
+        count: 100,
+        htmlNode: "<h3>Hello Mini Vue</h3><h4>something else</h4>"
+      },
+      methods: {
+        btn: () => alert("button clicked!")
+      }
+    });
+  </script>
+</body>
+
 </html>
